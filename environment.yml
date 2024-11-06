@@ -1,0 +1,10 @@
+name: pythontest3_env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.9
+  - django
+  - psycopg2-binary
+  - django-environ
+  - nodejs

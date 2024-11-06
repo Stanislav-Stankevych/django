@@ -1,0 +1,18 @@
+{
+  "name": "pythontest3",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.14",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.20",
+    "postcss-nested": "^5.0.6",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8",
+    "stylelint": "^14.16.1",
+    "stylelint-config-standard": "^24.0.0",
+    "cssnano": "^5.1.12"
+  }
+}

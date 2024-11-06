@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.env
+
+# Django
+db.sqlite3
+/media
+/staticfiles
+
+# Node.js
+node_modules/
+
+# Environment
+pythontest3_env/
