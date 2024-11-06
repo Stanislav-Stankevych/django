@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News</title>
+  </head>
+  <body>
+    <h1>Latest News</h1>
+    <h1>Latest News1</h1>
+    <ul>
+      {% for article in articlesscilk %}
+      <li>
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.content }}</p>
+        <small>Published on:11 {{ article.created_at }}</small>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
