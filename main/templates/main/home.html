@@ -1,58 +1,60 @@
+{% load static %}
 <!doctype html>
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <title>Главная страница</title>
-    <style>
-      /* Пример простого стиля для расположения контента */
-      .container {
-        display: flex;
-      }
-      .content {
-        flex: 3;
-        padding: 20px;
-      }
-      .sidebar {
-        flex: 1;
-        padding: 20px;
-      }
-      .post-summary {
-        margin-bottom: 20px;
-      }
-      .news-link {
-        margin-bottom: 10px;
-      }
-    </style>
+    <link href="{% static 'css/output.css' %}" rel="stylesheet" />
   </head>
-  <body>
-    <h1>Добро пожаловать на наш сайт!</h1>
-    <div class="container">
-      <!-- Центральная часть с блогами -->
-      <div class="content">
-        <h2>Последние блоги</h2>
-        {% for post in recent_posts %}
-        <div class="post-summary">
-          <h3>
-            <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
-          </h3>
-          <p>{{ post.content|truncatechars:150 }}</p>
+  <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="container mx-auto my-8">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Добро пожаловать на главную страницу!
+      </h1>
+
+      <!-- Контейнер для содержимого и боковой панели -->
+      <div class="flex flex-wrap -mx-4">
+        <!-- Центральная колонка с блогами -->
+        <div class="w-full md:w-2/3 px-4 mb-8">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Последние блоги</h2>
+            <ul>
+              {% for post in recent_posts %}
+              <li class="mb-6">
+                <h3 class="text-xl font-semibold text-blue-600 hover:underline">
+                  <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                </h3>
+                <p class="text-gray-700 mt-2">
+                  {{ post.content|truncatechars:150 }}
+                </p>
+              </li>
+              {% empty %}
+              <p>Нет доступных блогов.</p>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
-        {% empty %}
-        <p>Нет доступных блогов.</p>
-        {% endfor %}
-      </div>
-      <!-- Боковая панель с новостями -->
-      <div class="sidebar">
-        <h2>Последние новости</h2>
-        <ul>
-          {% for news in recent_news %}
-          <li class="news-link">
-            <a href="{% url 'news_detail' news.id %}">{{ news.title }}</a>
-          </li>
-          {% empty %}
-          <p>Нет доступных новостей.</p>
-          {% endfor %}
-        </ul>
+
+        <!-- Боковая панель с новостями -->
+        <div class="w-full md:w-1/3 px-4 mb-8">
+          <div class="bg-gray-200 p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold mb-4">Последние новости</h2>
+            <ul>
+              {% for news in recent_news %}
+              <li class="mb-4">
+                <a
+                  href="{% url 'news_detail' news.id %}"
+                  class="text-blue-600 hover:underline"
+                >
+                  {{ news.title }}
+                </a>
+              </li>
+              {% empty %}
+              <p>Нет доступных новостей.</p>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </body>
