@@ -1,0 +1,10 @@
+<h1>Новости</h1>
+<ul>
+  {% for news_item in news_items %}
+  <li>
+    <a href="{% url 'news_detail' news_item.id %}">{{ news_item.title }}</a>
+    <p>{{ news_item.created_at }}</p>
+  </li>
+  {% endfor %}
+</ul>
+<a href="{% url 'create_news' %}">Создать новость</a>

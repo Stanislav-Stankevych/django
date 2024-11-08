@@ -1,0 +1,21 @@
+<!-- news/templates/news/news_detail.html -->
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{{ news_item.title }}</title>
+  </head>
+  <body>
+    <h1>{{ news_item.title }}</h1>
+    <p>{{ news_item.content }}</p>
+    <p><em>Опубликовано: {{ news_item.created_at }}</em></p>
+    <a href="{% url 'home' %}">На главную</a>
+
+    <h1>Количество обновлений страницы: {{ refresh_count }}</h1>
+    {% if refresh_count > 1 %}
+    <p>Вы обновили страницу {{ refresh_count }} раз(а).</p>
+    {% else %}
+    <p>Это ваш первый визит на эту страницу.</p>
+    {% endif %}
+  </body>
+</html>

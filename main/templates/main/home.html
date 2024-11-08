@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Главная страница</title>
+    <style>
+      /* Пример простого стиля для расположения контента */
+      .container {
+        display: flex;
+      }
+      .content {
+        flex: 3;
+        padding: 20px;
+      }
+      .sidebar {
+        flex: 1;
+        padding: 20px;
+      }
+      .post-summary {
+        margin-bottom: 20px;
+      }
+      .news-link {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Добро пожаловать на наш сайт!</h1>
+    <div class="container">
+      <!-- Центральная часть с блогами -->
+      <div class="content">
+        <h2>Последние блоги</h2>
+        {% for post in recent_posts %}
+        <div class="post-summary">
+          <h3>
+            <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+          </h3>
+          <p>{{ post.content|truncatechars:150 }}</p>
+        </div>
+        {% empty %}
+        <p>Нет доступных блогов.</p>
+        {% endfor %}
+      </div>
+      <!-- Боковая панель с новостями -->
+      <div class="sidebar">
+        <h2>Последние новости</h2>
+        <ul>
+          {% for news in recent_news %}
+          <li class="news-link">
+            <a href="{% url 'news_detail' news.id %}">{{ news.title }}</a>
+          </li>
+          {% empty %}
+          <p>Нет доступных новостей.</p>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

@@ -3,17 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog Posts</title>
+    <title>Список постов</title>
   </head>
   <body>
-    <h1>Blog Posts</h1>
+    <h1>Список постов</h1>
+
+    <!-- Ссылка для создания новой новости в приложении news -->
+    <a href="{% url 'create_news' %}">Добавить новость</a>
+
     <ul>
+      <!-- Цикл для отображения каждого поста в списке -->
       {% for post in posts %}
       <li>
         <h2>{{ post.title }}</h2>
         <p>{{ post.content }}</p>
-        <p><em>Published on: {{ post.created_at }}</em></p>
+        <p><em>Опубликовано: {{ post.created_at }}</em></p>
       </li>
+      {% empty %}
+      <p>Пока нет постов.</p>
       {% endfor %}
     </ul>
   </body>
