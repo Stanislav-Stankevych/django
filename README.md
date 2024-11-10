@@ -25,6 +25,8 @@
     - [Функции](#функции)
       - [render();](#render)
       - [path();](#path)
+  - [Статьи для обучения](#статьи-для-обучения)
+    - [Глобальная папка templates в корне проекта](#глобальная-папка-templates-в-корне-проекта)
 
 ---
 
@@ -809,3 +811,107 @@ html
 Функция path() — это основной способ определения маршрутов в Django. Она позволяет связывать URL с
 представлениями, указывать динамические параметры, передавать дополнительные аргументы и задавать имена
 маршрутов для удобного создания ссылок в шаблонах.
+
+## Статьи для обучения
+
+### Глобальная папка templates в корне проекта
+
+Наиболее распространённый подход — создание глобальной папки templates в корне проекта. В этой папке находятся общие шаблоны, такие как base.html или layout.html, на основе которых создаются другие страницы. Такой шаблон служит каркасом для всех страниц, и его обычно расширяют (наследуют) в других шаблонах с помощью {% extends "base.html" %}.
+
+Например:
+
+```python
+
+myproject/
+├── blog/
+│   ├── templates/
+│   │   └── blog/
+│   │       ├── post_list.html
+│   │       └── post_detail.html
+│   ├── views.py
+├── news/
+│   ├── templates/
+│   │   └── news/
+│   │       ├── news_list.html
+│   │       └── news_detail.html
+│   ├── views.py
+├── templates/
+│   ├── base.html  # Основной каркас для всех страниц
+│   └── blog.html  # Общий файл для раздела блогов
+├── manage.py
+└── settings.py
+```
+
+2. Использование общего шаблона base.html
+   Создавая основной каркас base.html в глобальной папке templates, можно использовать его в качестве общей структуры для всего проекта. В этом файле обычно определяют базовый HTML, общие блоки <head>, <header>, <footer>, а также подключают CSS и JavaScript, используемые на всех страницах.
+
+```html
+Копировать код
+<!-- templates/base.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}My Project{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <header>
+      <h1>My Project</h1>
+      <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'blog:post_list' %}">Blog</a>
+        <a href="{% url 'news:news_list' %}">News</a>
+      </nav>
+    </header>
+
+    <main>{% block content %}{% endblock %}</main>
+
+    <footer>
+      <p>&copy; 2024 My Project</p>
+    </footer>
+  </body>
+</html>
+```
+
+3. Создание отдельного шаблона blog.html для раздела блога
+   Если вам нужен отдельный базовый шаблон именно для блога, вы можете создать его в корневой templates папке или в blog/templates/blog/:
+
+Если blog.html часто используется в других приложениях: Разместите его в корне templates.
+Если blog.html используется только в приложении blog: Разместите его в blog/templates/blog/.
+Например, если вы решили создать blog.html в blog/templates/blog/:
+
+```html
+Копировать код
+<!-- blog/templates/blog/blog.html -->
+{% extends "base.html" %} {% block title %}Blog - {{ block.super }}{% endblock
+%} {% block content %}
+<h2>Welcome to the Blog Section</h2>
+{% block blog_content %}{% endblock %} {% endblock %}
+```
+
+Теперь шаблоны, относящиеся к блогу, могут использовать этот каркас:
+
+```html
+<!-- blog/templates/blog/post_list.html -->
+{% extends "blog/blog.html" %} {% block blog_content %}
+<h3>Blog Posts</h3>
+<ul>
+  {% for post in posts %}
+  <li>
+    <h4>{{ post.title }}</h4>
+    <p>{{ post.content|truncatewords:20 }}</p>
+    <a href="{% url 'blog:post_detail' post.id %}">Read more</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+```
+
+Итог templates/base.html — основной каркас для всего
+проекта, где можно определить общие элементы, такие как шапка, подвал и стили.
+templates/blog.html (или blog/templates/blog/blog.html) — каркас для раздела
+блога, если нужна особая структура именно для этого раздела. Специфичные шаблоны
+для каждой страницы, такие как post_list.html или post_detail.html, могут
+находиться внутри папки каждого приложения, чтобы код был структурированным и
+легко управляемым.
