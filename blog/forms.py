@@ -5,11 +5,19 @@ from .models import Post
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', "is_published" ]
-#Добавление классов к полям в Meta с помощью widgets
-#Это один из самых популярных методов. В классе Meta формы можно использовать атрибут widgets, чтобы настроить каждый элемент
+        fields = ['title', 'content', 'is_published']
+        
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control-title', 'placeholder': 'Введите заголовок'}),
-            'content': forms.Textarea(attrs={'class': 'form-control-text', 'placeholder': 'Введите текст'}),
-            'is_published': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'title': forms.TextInput(attrs={
+                'class': 'form-control-title w-full p-2 border border-gray-300 rounded-md',
+                'placeholder': 'Введите заголовок'
+            }),
+            'content': forms.Textarea(attrs={
+                'class': 'form-control-text w-full p-2 border border-gray-300 rounded-md',
+                'placeholder': 'Введите текст'
+            }),
+            'is_published': forms.CheckboxInput(attrs={
+                'class': 'form-check-input',
+            }),
         }
+# [Форма регистрации](file:///C:\Pythontest3\blog\forms.py#L10)
