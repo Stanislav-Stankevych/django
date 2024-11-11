@@ -14,4 +14,4 @@ def home(request):
         'recent_posts': recent_posts,
         'recent_news': recent_news,
     }
-    return render(request, 'main/home.html', context)
+    return render(request, 'base.html', context)

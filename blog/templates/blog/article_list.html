@@ -1,27 +1,22 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Список статей</title>
-  </head>
-  <body>
-    <h1>Список статей</h1>
+{% extends "base.html" %}
 
-    <!-- Ссылка для перехода к созданию новой новости -->
-    <a href="{% url 'create_news' %}">Добавить новость</a>
+{% block title %}Список статей{% endblock %}
 
-    <ul>
-      <!-- Цикл для отображения каждой статьи в списке -->
-      {% for article in articlesscilk %}
-      <li>
-        <h2>{{ article.title }}</h2>
-        <p>{{ article.content }}</p>
-        <p><em>Опубликовано: {{ article.created_at }}</em></p>
-      </li>
-      {% empty %}
+{% block urlpage %}
+  <a href="{% url 'create_news' %}">Добавить новость</a>
+{% endblock %}
+
+{% block content %}
+<ul>
+  <!-- Цикл для отображения каждой статьи в списке -->
+  {% for article in articlesscilk %}
+    <li>
+      <h2>{{ article.title }}</h2>
+      <p>{{ article.content }}</p>
+      <p><em>Опубликовано: {{ article.created_at }}</em></p>
+    </li>
+    {% empty %}
       <p>Пока нет статей.</p>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+  {% endfor %}
+</ul>
+{% endblock %}

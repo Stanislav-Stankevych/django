@@ -1,0 +1,7 @@
+# .prettierignore
+# Игнорировать конкретные файлы
+src/ignore-this-file.js
+public/assets/
+
+# Игнорировать все файлы определённого типа
+*.html
