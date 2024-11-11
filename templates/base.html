@@ -5,19 +5,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>{% block title %}My Project{% endblock %}</title>
-    <link href="{% static 'css/output.css' %}?v={{ timestamp }}" rel="stylesheet" />
-
+    <link
+      href="{% static 'css/output.css' %}?v={{ timestamp }}"
+      rel="stylesheet"
+    />
   </head>
-  <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+  <body>
     <!-- Основной контейнер -->
     <div class="container mx-auto my-8">
-
       <!-- Заголовок -->
       <header class="header">
-        <div class="flex justify-between items-center px-4 ">
-          <h1 class="text-4xl font-bold">
-            {% block header %}Добро пожаловать на главную страницу!{% endblock %}
-          </h1>
+        <div class="flex justify-between items-center px-4">
+          <h1 class="text-4xl font-bold"></h1>
           <nav class="space-x-4">
             <a href="{% url 'home' %}" class="hover:underline">Home</a>
             <a href="{% url 'article_list' %}" class="hover:underline">Blog</a>
@@ -26,7 +25,7 @@
           </nav>
         </div>
       </header>
-
+      {% block header %}Добро пожаловать на главную страницу!{% endblock%}
       <!-- Основной контент -->
       <main class="mt-8 p-4 bg-white rounded shadow-md">
         {% block content %}{% endblock %}

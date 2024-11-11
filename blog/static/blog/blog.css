@@ -22,8 +22,6 @@
   @apply p-2 rounded bg-white text-gray-800;
 }
 body {
-  background-color: rgb(33, 15, 104);
-}
-@apply {
-  background-color: black;
+  background-color: cadetblue;
+  color: blue;
 }
