@@ -5,26 +5,37 @@
   <head>
     <meta charset="UTF-8" />
     <title>{% block title %}My Project{% endblock %}</title>
-    <link href="{% static 'css/output.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/output.css' %}?v={{ timestamp }}" rel="stylesheet" />
+
   </head>
-  <body>
-    <h1 class="text-4xl font-bold text-center mb-6">
-      {% block header %} Добро пожаловать на главную страницу!{% endblock %}
-    </h1>
+  <body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <!-- Основной контейнер -->
+    <div class="container mx-auto my-8">
 
-    <header>
-      <nav>
-        <a href="{% url 'home' %}">Home</a>
-        <a href="{% url 'article_list' %}">Blog</a>
-        <a href="{% url 'news_list' %}">News</a>
-        {% block urlpage %} {% endblock %}
-      </nav>
-    </header>
+      <!-- Заголовок -->
+      <header class="bg-blue-600 text-white py-4">
+        <div class="flex justify-between items-center px-4">
+          <h1 class="text-4xl font-bold">
+            {% block header %}Добро пожаловать на главную страницу!{% endblock %}
+          </h1>
+          <nav class="space-x-4">
+            <a href="{% url 'home' %}" class="hover:underline">Home</a>
+            <a href="{% url 'article_list' %}" class="hover:underline">Blog</a>
+            <a href="{% url 'news_list' %}" class="hover:underline">News</a>
+            {% block urlpage %}{% endblock %}
+          </nav>
+        </div>
+      </header>
 
-    <main>{% block content %} {% endblock %}</main>
+      <!-- Основной контент -->
+      <main class="mt-8 p-4 bg-white rounded shadow-md">
+        {% block content %}{% endblock %}
+      </main>
 
-    <footer>
-      <p>&copy; 2024 My Project</p>
-    </footer>
+      <!-- Футер -->
+      <footer class="bg-gray-800 text-blue-600 text-center py-4 mt-8">
+        <p>&copy; 2024 My Project</p>
+      </footer>
+    </div>
   </body>
 </html>

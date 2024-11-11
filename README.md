@@ -21,6 +21,7 @@
     - [Команды для Django](#команды-для-django)
     - [Команды для GitHub](#команды-для-github)
     - [Команды для conda](#команды-для-conda)
+    - [Котманды для npm](#котманды-для-npm)
   - [Функции и их реализация](#функции-и-их-реализация)
     - [Функции](#функции)
       - [render();](#render)
@@ -28,6 +29,8 @@
   - [Статьи для обучения](#статьи-для-обучения)
     - [Глобальная папка templates в корне проекта](#глобальная-папка-templates-в-корне-проекта)
     - [Наследование шаблонов {% extends "base.html" %}](#наследование-шаблонов--extends-basehtml-)
+    - [Проблемы с фоном](#проблемы-с-фоном)
+    - [Добавление метки времени в base.html](#добавление-метки-времени-в-basehtml)
 
 ---
 
@@ -658,6 +661,36 @@ _Удалите окружение: Выполните следующую ком
 в виде файла **environment.yml**, чтобы другие разработчики могли установить такие же зависимости,
 выполнив команду:
 
+### Котманды для npm
+
+Запусти Tailwind CSS для генерации стилей:
+Эта команда будет следить за style.css, компилировать Tailwind CSS и записывать результат в output.css.
+
+```js
+npx tailwindcss -i ./static/css/style.css -o ./static/css/output.css --watch
+
+```
+
+или как в нашем проекте
+
+```js
+npx tailwindcss -i ./src/main.css -o ./static/css/output.css --watch
+```
+
+В корне проекта создай файл package.json, выполнив:
+
+```js
+npm init -y
+```
+
+Установи Tailwind CSS:
+
+```js
+npm install -D tailwindcss
+npx tailwindcss init
+
+```
+
 ## Функции и их реализация
 
 ### Функции
@@ -1014,3 +1047,99 @@ html
 Чистота кода: Благодаря наследованию шаблоны становятся проще, так как каждая страница содержит только уникальный для неё контент.
 Итог
 {% extends "base.html" %} в Django указывает, что текущий шаблон должен использовать base.html в качестве основы и подставлять контент только в определённых блоках. Этот механизм позволяет эффективно управлять структурой HTML-страниц и облегчает поддержку кода.
+
+### Проблемы с фоном
+
+Если изменения фона не применяются моментально, это может быть связано с кэшированием или с особенностями компиляции Tailwind CSS. Вот несколько шагов, чтобы исправить ситуацию:
+
+1. Отключите кэширование в браузере
+   Проблемы с фоном часто возникают из-за кэширования. Попробуйте принудительно обновить страницу, чтобы очистить кэш:
+
+Windows: Ctrl + F5
+
+2. Проверьте кэширование CSS
+   Если проблема остаётся, попробуйте добавить временную метку к подключению CSS-файла в base.html, чтобы убедиться, что используется самая последняя версия файла.
+
+```html
+<link href="{% static 'css/output.css' %}?v={{ timestamp }}" rel="stylesheet" />
+```
+
+Для timestamp можно использовать, например, текущую дату и время, чтобы избежать кэширования:
+
+```python
+
+from django.utils.timezone import now
+
+def base_context_processor(request):
+    return {'timestamp': now().timestamp()}
+
+```
+
+И добавьте этот base_context_processor в TEMPLATES -> OPTIONS -> context_processors в settings.py:
+
+```python
+
+'context_processors': [
+    # другие процессоры
+    'myapp.context_processors.base_context_processor',
+]
+
+```
+
+### Добавление метки времени в base.html
+
+Измените base.html, чтобы подключение к output.css включало временную метку:
+
+```html
+<link href="{% static 'css/output.css' %}?v={{ timestamp }}" rel="stylesheet" />
+```
+
+2. Создание контекстного процессора для добавления timestamp
+   Создайте файл context_processors.py внутри приложения вашего проекта (например, в корне приложения main), и добавьте туда функцию, которая будет добавлять метку времени в контекст.
+
+Пример context_processors.py
+
+```python
+main/context_processors.py
+from django.utils.timezone import now
+
+def base_context_processor(request):
+    return {'timestamp': now().timestamp()}
+```
+
+3. Обновление settings.py для подключения контекстного процессора
+   В settings.py добавьте этот контекстный процессор к списку context_processors внутри TEMPLATES.
+   Это сделает переменную timestamp доступной во всех шаблонах.
+
+settings.py
+
+```python
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / "templates"],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'main.context_processors.base_context_processor',  # Подключите ваш контекстный процессор здесь
+            ],
+        },
+    },
+]
+```
+
+Теперь переменная timestamp будет автоматически добавляться к output.css, что поможет предотвратить кэширование стилей в браузере.
+
+Проверка и перезапуск Tailwind CSS
+Не забудьте также перезапустить команду для компиляции Tailwind CSS, чтобы убедиться, что output.css обновляется корректно:
+
+```js
+npx tailwindcss -i ./static/css/style.css -o ./static/css/output.css --watch
+```
+
+Теперь стили должны применяться, и при изменении фона вы увидите изменения.
