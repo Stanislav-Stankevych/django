@@ -1,30 +1,24 @@
 /* main/static/main/home.css */
 
-/* Основные стили для заголовка */
 .header {
-  @apply text-4xl font-bold text-center mb-6;
+  @apply bg-gradient-to-r from-blue-600 via-blue-400 to-white;
+  @apply text-white py-6 px-8;
+  @apply flex justify-between items-center;
+  background-color: blueviolet;
 }
 
-/* Контейнер для основного содержимого и боковой панели */
-.container {
-  @apply mx-auto my-8;
+.site-title {
+  @apply text-3xl font-bold;
 }
 
-/* Стили для блочной секции */
-.content {
-  @apply bg-white p-6 rounded-lg shadow-md mb-8;
+.nav-links {
+  @apply space-x-4;
 }
 
-/* Боковая панель */
-.sidebar {
-  @apply bg-gray-200 p-6 rounded-lg shadow-md;
+.nav-links a {
+  @apply text-white hover:underline;
 }
 
-/* Стили заголовков и текста */
-.post-title {
-  @apply text-xl font-semibold text-blue-600 hover:underline;
-}
-
-.post-content {
-  @apply text-gray-700 mt-2;
+.search-bar input {
+  @apply p-2 rounded bg-white text-gray-800;
 }
