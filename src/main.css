@@ -1,9 +1,11 @@
 /* src/main.css - Это главный файл в который будут подключены все стили и который будет 
 рендереца postcss*/
-@tailwind base; /* загрузка основныйх файлов tailwind */
+/*загрузка основныйх файлов tailwind */
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* Импорт стилей для главной страницы */
+/*Импорт стилей для главной страницы */
 @import "../main/static/main/home.css";
 @import "../news/static/news/news.css";
 @import "../blog/static/blog/blog.css";
+@import "header.css";
