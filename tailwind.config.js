@@ -7,6 +7,7 @@ module.exports = {
     "./news/templates/**/*.html",
     "./blog/static/**/*.css", // Укажите путь к файлам blog.css
     "./news/static/**/*.css", // Укажите путь к файлам blog.css
+    "./src/**/*.css", // Укажите путь к CSS-файлам
   ],
   theme: {
     extend: {},

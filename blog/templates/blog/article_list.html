@@ -1,22 +1,17 @@
-{% extends "base.html" %}
-
-{% block title %}Список статей{% endblock %}
-
-{% block urlpage %}
-  <a href="{% url 'create_news' %}">Добавить новость</a>
-{% endblock %}
-
+{% extends "base.html" %} {% block title %}Список статей{% endblock %}
+<a href="{% url 'create_news' %}">Добавить новость</a>
 {% block content %}
 <ul>
   <!-- Цикл для отображения каждой статьи в списке -->
   {% for article in articlesscilk %}
-    <li>
-      <h2>{{ article.title }}</h2>
-      <p>{{ article.content }}</p>
-      <p><em>Опубликовано: {{ article.created_at }}</em></p>
-    </li>
-    {% empty %}
-      <p>Пока нет статей.</p>
+  <li>
+    <h2>{{ article.title }}</h2>
+    <p>{{ article.content }}</p>
+    <p><em>Опубликовано: {{ article.created_at }}</em></p>
+  </li>
+  <a class="heit" href="{% url 'create_news' %}">Добавить новость</a>
+  {% empty %}
+  <p>Пока нет статей.</p>
   {% endfor %}
 </ul>
 {% endblock %}

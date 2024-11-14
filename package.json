@@ -2,7 +2,7 @@
   "name": "pythontest3",
   "version": "1.0.0",
   "scripts": {
-    "build": "tailwindcss -i ./src/main.css -o ./dist/output.css"
+    "build": "tailwindcss -i ./src/main.css -o ./static/css/output.css"
   },
   "devDependencies": {
     "cssnano": "^7.0.6",
