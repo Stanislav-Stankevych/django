@@ -1,3 +1,7 @@
+{% extends "base.html" %} 
+
+{% block content %}
+
 <h1 class="geru">Новости1</h1>
 <ul>
   {% for news_item in news_items %}
@@ -8,3 +12,6 @@
   {% endfor %}
 </ul>
 <a href="{% url 'create_news' %}">Создать новость</a>
+
+
+{% endblock %}

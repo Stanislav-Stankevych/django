@@ -1,3 +1,5 @@
 
 
-
+body {
+    @apply bg-gradient-to-b from-cyan-500 to-white py-6 shadow-lg;
+  }

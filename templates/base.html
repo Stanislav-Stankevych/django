@@ -21,15 +21,27 @@
           <nav class="space-x-4">
             <a href="{% url 'home' %}" class="nav-link">Home</a>
             <a href="{% url 'article_list' %}" class="nav-link">Blog</a>
-            <a href="{% url 'news_list' %}" class="class" ="nav-link">News</a>
-            {% block urlpage %}{% endblock %}
+            <a href="{% url 'news_list' %}" class="nav-link">News</a>
+            {% block urlpage %} {% endblock %}
           </nav>
+        
         </div>
       </header>
-      {% block header %}Добро пожаловать на главную страницу!{% endblock%}
+
+
+      <!-- Заголовок -->
+      {% block header %}
+      Добро пожаловать на главную страницу!
+      {% endblock%}
+
+
       <!-- Основной контент -->
-      <main class="mt-8 p-4 bg-white rounded shadow-md">
+      <main class="mt-8 p-4 bg-slate-300 rounded shadow-md">
+       
+       
         {% block content %}{% endblock %}
+      
+      
       </main>
 
       <!-- Футер -->

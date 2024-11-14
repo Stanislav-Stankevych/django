@@ -1,14 +1,19 @@
+
+/*Импорт стилей для главной страницы  непаботает для tailwind*/
+@import "../main/static/main/home.css";
+@import "../news/static/news/news.css";
+@import "../blog/static/blog/blog.css";
+@import "header.css";
+
+
 /* src/main.css - Это главный файл в который будут подключены все стили и который будет 
 рендереца postcss*/
 /*загрузка основныйх файлов tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/*Импорт стилей для главной страницы  непаботает для tailwind*/
-@import "../main/static/main/home.css";
-@import "../news/static/news/news.css";
-@import "../blog/static/blog/blog.css";
-@import "header.css";
+
+
 /* header.css */
 .header {
   @apply bg-gradient-to-b from-cyan-500 to-white py-6 shadow-lg;
@@ -26,5 +31,5 @@
   background-image: url('/static/images/banner-header-tapete-1450092637tNw.jpg'); /* Укажите путь к изображению */
   background-size: cover;
   background-position: center;
-  heigt:200px;
+  
 }
