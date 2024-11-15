@@ -1,16 +1,12 @@
-{% load static %}
-<!doctype html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Создать новый пост</title>
-    <link href="{% static 'css/output.css' %}" rel="stylesheet" />
-  </head>
-  <body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <div class="container mx-auto my-8 max-w-lg">
-      <h1 class="text-3xl font-bold text-center mb-6">Создать новый пост</h1>
+{% extends "base.html" %} 
 
-      <form method="post" class="bg-white p-8 rounded-lg shadow-md">
+  
+      {% block header %}
+      Создать новый пост
+      {% endblock%}
+
+      {% block content %}
+      <form method="post" class="bg-white  p-8 rounded-lg shadow-md">
         {% csrf_token %} {{ form.non_field_errors }}
 
         <!-- Поле заголовка -->
@@ -44,7 +40,8 @@
           Создать
         </button>
       </form>
-    </div>
-    <a href="{% url 'post_list'  %}">Подробнее о посте</a>
-  </body>
-</html>
+      <a href="{% url 'post_list'  %}">Подробнее о посте</a>
+      {% endblock %}
+    
+    
+

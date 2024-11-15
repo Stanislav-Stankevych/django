@@ -8,6 +8,7 @@ module.exports = {
     "./blog/static/**/*.css", // Укажите путь к файлам blog.css
     "./news/static/**/*.css", // Укажите путь к файлам blog.css
     "./src/**/*.css", // Укажите путь к CSS-файлам
+    './src/**/*.vue'
   ],
   theme: {
     extend: {},

@@ -9,11 +9,11 @@ class PostForm(forms.ModelForm):
         
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-control-title w-full p-2 border border-gray-300 rounded-md',
+                'class': ' border-t-4 border-red-500 rounded-t-lg  p-4 form-control-title w-full rounded-md ',
                 'placeholder': 'Введите заголовок'
             }),
             'content': forms.Textarea(attrs={
-                'class': 'form-control-text w-full p-2 border border-gray-300 rounded-md',
+                'class': 'bg-blue-200 p-2 border border-gray-300 rounded-md',
                 'placeholder': 'Введите текст'
             }),
             'is_published': forms.CheckboxInput(attrs={

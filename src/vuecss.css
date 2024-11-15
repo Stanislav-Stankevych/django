@@ -1,0 +1,5 @@
+/* src/main.css */
+.footer-social-link {
+    @apply transition duration-500 ease-in-out transform hover:scale-110 hover:text-blue-600;
+  }
+  
