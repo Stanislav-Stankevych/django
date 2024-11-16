@@ -1,6 +1,6 @@
 <template>
   <a :href="href" class="social-link">
-    <slot>Привет Slot</slot>
+    <slot></slot>
   </a>
 </template>
 

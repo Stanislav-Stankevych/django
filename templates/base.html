@@ -3,13 +3,10 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta Content-Type="text/html"; charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Project{% endblock %}</title>
-    <link
-      href="{% static 'css/output.css' %}?v={{ timestamp }}"
-      rel="stylesheet"
-    />
+    <link href="{% static 'css/output.css' %}?v={{ timestamp }}" rel="stylesheet" type="text/css" />
   </head>
   <body>
     <!-- Основной контейнер -->
@@ -41,13 +38,18 @@
        
        
         {% block content %}{% endblock %}
-      
+        <div id="footer1-app" class="block">
+          <social-link href="https://facebook.com">Facebook</social-link>
+          <social-link href="https://twitter.com">Twitter</social-link>
+          <social-link href="https://instagram.com">Instagram</social-link>
+        </div>
       
       </main>
       <div id="vue-app"></div> <!-- Контейнер для Vue -->
       <!-- Футер -->
       <!-- templates/base.html или другой основной файл -->
 <footer class="footer">
+  
   <div class="footer-container">
     <div class="flex flex-col md:flex-row justify-between items-center">
       <!-- Логотип или Название сайта -->
@@ -65,12 +67,7 @@
     </div>
 
     <!-- Социальные иконки или дополнительная информация -->
-    <div id="footer-app">
-      
-      <social-link href="https://facebook.com">Facebook</social-link>
-      <social-link href="https://twitter.com">Twitter</social-link>
-      <social-link href="https://instagram.com">Instagram</social-link>
-    </div>
+   
     
   </div>
 </footer>
@@ -79,8 +76,8 @@
 
 <!-- Vue приложение -->
 <div id="app"></div>
-<script type="module" src="{% static 'js/main.js' %}"></script>
 
 
+<script type="module" src="{% static 'js/main.js' %}" defer></script>
   </body>
 </html>
