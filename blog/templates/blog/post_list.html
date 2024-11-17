@@ -1,27 +1,42 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Список постов</title>
-  </head>
-  <body>
-    <h1>Список постов</h1>
+{% extends "base.html" %} 
+
+{% block title %}Список постов{% endblock %} 
 
     <!-- Ссылка для создания новой новости в приложении news -->
-    <a href="{% url 'create_news' %}">Добавить новость1</a>
+    {% block urlpage %} 
+    <a class="nav-link" href="{% url 'create_post' %}">Добавить новость</a>
+    {% endblock %}
 
-    <ul>
+    
+    {% block content %}
+      <ul>
       <!-- Цикл для отображения каждого поста в списке -->
-      {% for post in posts %}
-      <li>
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.content }}</p>
-        <p><em>Опубликовано: {{ post.created_at }}</em></p>
-      </li>
+      {% for post in page_obj %}
+           <li>
+              <h2>{{ post.title }}</h2>
+              <p>{{ post.content }}</p>
+              <p><em>Опубликовано: {{ post.created_at }}</em></p>
+            </li>
       {% empty %}
       <p>Пока нет постов.</p>
       {% endfor %}
-    </ul>
-  </body>
-</html>
+      </ul>
+
+       <!-- Постраничная навигация -->
+ <div class="pagination">
+  {% if page_obj.has_previous %}
+    <a href="?page=1" class="pagination-link">Первая</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Предыдущая</a>
+  {% endif %}
+
+  <span class="pagination-current">
+    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+  </span>
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Следующая</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Последняя</a>
+  {% endif %}
+</div>
+
+    {% endblock %}

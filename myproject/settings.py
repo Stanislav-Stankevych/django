@@ -98,14 +98,7 @@ env = environ.Env()
 environ.Env.read_env()
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'PythonTestDB',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'db',
-        'PORT': '5432',
-    }
+    'default': env.db()
 }
 
 #DATABASES = {

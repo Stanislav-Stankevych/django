@@ -1,10 +1,5 @@
-//hei det er stas
+// main.js
 import { createApp } from 'vue';
-import SocialLink from './SocialLink.vue';
-
-const app = createApp({});
-app.component('social-link', SocialLink);
-app.mount('#footer1-app');
-
-
+import App from './App.vue';
+createApp(App).mount('#app');
 console.log('Vue is working!');

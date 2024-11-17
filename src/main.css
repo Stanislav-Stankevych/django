@@ -15,3 +15,8 @@
 @tailwind utilities;
 
 
+/*@layer components {
+    .header-gradient {
+      @apply bg-gradient-to-r from-black via-blue-700 to-white text-white;
+    }
+  }*/

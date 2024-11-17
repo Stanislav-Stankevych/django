@@ -4,15 +4,34 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from .forms import PostForm
+from django.core.paginator import Paginator
 
+#def article_list(request):
+ #   articles = Post.objects.all()
+  #  return render(request, 'blog/article_list.html', {'articlesscilk': articles})
 
 def article_list(request):
-    articles = Post.objects.all()
-    return render(request, 'blog/article_list.html', {'articlesscilk': articles})
+    posts = Post.objects.order_by('-created_at')  # Сортируем по дате создания, самые новые сверху
+    paginator = Paginator(posts, 2)  # Показываем по 2 статьи на странице
+
+    page_number = request.GET.get('page')  # Получаем номер страницы из параметра GET
+    page_obj = paginator.get_page(page_number)  # Получаем объект страницы
+
+    return render(request, 'blog/article_list.html', {'page_obj': page_obj})
+
+#def post_list(request):
+ #   posts = Post.objects.all()
+  #  return render(request, 'blog/post_list.html', {'posts': posts})
+
 
 def post_list(request):
-    posts = Post.objects.all()
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    posts = Post.objects.order_by('-created_at')  # Сортируем по дате создания, самые новые сверху
+    paginator = Paginator(posts, 2)  # Показываем по 2 статьи на странице
+
+    page_number = request.GET.get('page')  # Получаем номер страницы из параметра GET
+    page_obj = paginator.get_page(page_number)  # Получаем объект страницы
+
+    return render(request, 'blog/post_list.html', {'page_obj': page_obj})
 
 def create_post(request):
     if request.method == 'POST':

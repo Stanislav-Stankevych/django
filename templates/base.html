@@ -13,23 +13,28 @@
     <div class="container mx-auto my-8">
       <!-- Заголовок -->
 
-      <header id="header" class="bg-header h-32">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-          <h1 class="header-title">Блог новость</h1>
-          <nav class="space-x-4">
-            <a href="{% url 'home' %}" class="nav-link">Home</a>
-            <a href="{% url 'article_list' %}" class="nav-link">Blog</a>
-            <a href="{% url 'news_list' %}" class="nav-link">News</a>
-            {% block urlpage %} {% endblock %}
-          </nav>
-        
-        </div>
-      </header>
+   
+        <header class="header-gradient  h-32">
+          <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="header-title">Блог новость</h1>
+            <nav class="space-x-4">
+              <a href="{% url 'home' %}" class="nav-link">Home</a>
+              <a href="{% url 'article_list' %}" class="nav-link">Blog</a>
+              <a href="{% url 'news_list' %}" class="nav-link">News</a>
+              {% block urlpage %} {% endblock %}
+            </nav>
+          
+          </div>
+        </header>
+      
 
+
+      
 
       <!-- Заголовок -->
       {% block header %}
       Добро пожаловать на главную страницу!
+      <div id="app"></div> <!-- Контейнер для Vue -->
       {% endblock%}
 
 
@@ -37,18 +42,15 @@
       <main class="mt-8 border-solid back p-4 bg-slate-300 rounded shadow-md">
        
        
-        {% block content %}{% endblock %}
-        <div id="footer1-app" class="block">
-          <social-link href="https://facebook.com">Facebook</social-link>
-          <social-link href="https://twitter.com">Twitter</social-link>
-          <social-link href="https://instagram.com">Instagram</social-link>
-        </div>
-      
+        {% block content %}
+        
+        {% endblock %}
+        
       </main>
       <div id="vue-app"></div> <!-- Контейнер для Vue -->
       <!-- Футер -->
       <!-- templates/base.html или другой основной файл -->
-<footer class="footer">
+<footer class="footer ">
   
   <div class="footer-container">
     <div class="flex flex-col md:flex-row justify-between items-center">
@@ -56,14 +58,15 @@
       <h2 class="footer-title">My Project</h2>
 
       <!-- Навигационные ссылки -->
-      <ul class="footer-links">
+      <ul class="footer-links visible">
         <li><a href="{% url 'home' %}" class="footer-link">Главная</a></li>
         <li><a href="{% url 'post_list' %}" class="footer-link">Блог</a></li>
         <li><a href="{% url 'news_list' %}" class="footer-link">Новости</a></li>
+        <li><a href="{% url 'create_post' %}" class="footer-link">Создать Блог</a></li>
       </ul>
 
       <!-- Информация о авторских правах -->
-      <p class="footer-copyright">&copy; 2024 My Project. Все права защищены.</p>
+      <p class="footer-copyright">&copy; 2024 Новости. Все права защищены.</p>
     </div>
 
     <!-- Социальные иконки или дополнительная информация -->
