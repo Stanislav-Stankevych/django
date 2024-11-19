@@ -2,22 +2,37 @@
 from django import forms
 from .models import Post
 
+from django import forms
+from .models import Post
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'is_published']
-        
         widgets = {
             'title': forms.TextInput(attrs={
-                'class': 'form-control-title w-full p-2 border border-gray-300 rounded-md',
-                'placeholder': 'Введите заголовок'
+                'class': 'block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'placeholder': 'Введите заголовок',
             }),
             'content': forms.Textarea(attrs={
-                'class': 'form-control-text w-full p-2 border border-gray-300 rounded-md',
-                'placeholder': 'Введите текст'
+                'class': 'block w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'placeholder': 'Введите содержание',
+                'rows': 4,
             }),
             'is_published': forms.CheckboxInput(attrs={
-                'class': 'form-check-input',
+                'class': 'rounded',
             }),
         }
+
 # [Форма регистрации](file:///C:\Pythontest3\blog\forms.py#L10)
+
+
+class SearchForm(forms.Form):
+    q = forms.CharField(
+        max_length=255,
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control border-gray-300 rounded-md px-4 py-2 w-full',
+            'placeholder': 'Введите запрос для поиска...',
+        })
+    )

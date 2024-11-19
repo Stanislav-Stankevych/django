@@ -1,27 +1,41 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Список постов</title>
-  </head>
-  <body>
-    <h1>Список постов</h1>
+{% extends "base.html" %}
 
-    <!-- Ссылка для создания новой новости в приложении news -->
-    <a href="{% url 'create_news' %}">Добавить новость1</a>
+{% block title %}Список постов{% endblock %}
 
-    <ul>
-      <!-- Цикл для отображения каждого поста в списке -->
-      {% for post in posts %}
-      <li>
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.content }}</p>
-        <p><em>Опубликовано: {{ post.created_at }}</em></p>
+{% block content %}
+<div class="post-list">
+  <h1 class="text-2xl font-bold mb-4">Список постов</h1>
+  
+  <!-- Выводим посты -->
+  <ul>
+    {% for post in page_obj %}
+      <li class="mb-4">
+        <h2 class="text-xl font-semibold">{{ post.title }}</h2>
+        <p class="text-gray-600">{{ post.content|truncatechars:100 }}</p>
+        <a href="{% url 'post_detail' post.id %}" class="text-blue-500 hover:underline">
+          Читать дальше
+        </a>
       </li>
-      {% empty %}
-      <p>Пока нет постов.</p>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+    {% empty %}
+      <p>Нет доступных постов.</p>
+    {% endfor %}
+  </ul>
+  
+  <!-- Пагинация -->
+  <div class="pagination flex justify-center items-center space-x-4 mt-4">
+    {% if page_obj.has_previous %}
+      <a href="?page=1" class="pagination-link">Первая</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Предыдущая</a>
+    {% endif %}
+    
+    <span class="pagination-current">
+      Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+    </span>
+    
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Следующая</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Последняя</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

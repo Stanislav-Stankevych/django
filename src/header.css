@@ -1,0 +1,26 @@
+
+@layer components {
+  .header-gradient {
+    @apply bg-gradient-to-b from-black via-blue-700 to-white text-white;
+  }
+}
+
+.search-form {
+  @apply flex items-center gap-2;
+}
+
+.search-input {
+  @apply border border-gray-300 rounded-md p-2 text-sm text-black w-64;
+}
+
+.search-button {
+  @apply bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm;
+}
+
+.nav-link {
+  @apply text-white hover:underline font-semibold text-lg;
+}
+
+.header-title {
+  @apply text-white text-2xl font-bold;
+}

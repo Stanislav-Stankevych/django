@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+  <h2 class="text-xl font-bold mb-4">Все статьи</h2>
+
+  <!-- Список статей -->
+  <ul>
+    {% for article in page_obj %}
+  <li class="mb-4">
+    <h3 class="text-lg font-semibold">{{ article.title }}</h3>
+    <p>{{ article.content|truncatechars:100 }}</p>
+
+    {% if article.get_model_name == 'post' %}
+      <a href="{% url 'post_detail' article.id %}" class="text-blue-500 hover:underline">Читать дальше</a>
+    {% elif article.get_model_name == 'news' %}
+      <a href="{% url 'news_detail' article.id %}" class="text-blue-500 hover:underline">Читать дальше</a>
+    {% endif %}
+  </li>
+{% empty %}
+  <p>Пока нет статей.</p>
+{% endfor %}
+  </ul>
+
+  <!-- Пагинация -->
+  <div class="pagination flex justify-center mt-4">
+    {% if page_obj.has_previous %}
+      <a href="?page=1" class="pagination-link">Первая</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Предыдущая</a>
+    {% endif %}
+    <span class="pagination-current">
+      Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+    </span>
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Следующая</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Последняя</a>
+    {% endif %}
+  </div>
+{% endblock %}

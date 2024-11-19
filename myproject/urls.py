@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from main import views as main_views  # Импортируем представления из приложения main
-
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),# Все URL с префиксом blog/ идут в приложение blog и дальше распределяет который находится в блоге
     path('news/', include('news.urls')),  # Все URL с префиксом news/ идут в приложение news
-    path('', main_views.home, name='home'),  # Указываем main_views.home # Главная страница проекта
-#main/views - home
+    path('', views.home, name='home'),  # Указываем  # Главная страница проекта
+    path('search/', views.global_search, name='global_search'),  # Маршрут для поиска
+
+
 ]

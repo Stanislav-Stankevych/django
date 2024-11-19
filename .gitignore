@@ -1,7 +1,4 @@
-# Python
-__pycache__/
-*.py[cod]
-.env
+
 
 # Django
 db.sqlite3
@@ -11,5 +8,4 @@ db.sqlite3
 # Node.js
 node_modules/
 
-# Environment
-pythontest3_env/
+

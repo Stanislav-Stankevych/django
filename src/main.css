@@ -1,9 +1,22 @@
+
+/*Импорт стилей для главной страницы  непаботает для tailwind*/
+@import "../main/static/main/home.css";
+@import "../news/static/news/news.css";
+@import "../blog/static/blog/blog.css";
+@import "header.css";
+@import "footer.css";
+@import "vuecss.css";
+
 /* src/main.css - Это главный файл в который будут подключены все стили и который будет 
 рендереца postcss*/
-@tailwind base; /* загрузка основныйх файлов tailwind */
+/*загрузка основныйх файлов tailwind */
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* Импорт стилей для главной страницы */
-@import "../main/static/main/home.css";
-@import "../blog/static/blog/blog.css";
-@import "../news/static/news/news.css";
+
+
+/*@layer components {
+    .header-gradient {
+      @apply bg-gradient-to-r from-black via-blue-700 to-white text-white;
+    }
+  }*/

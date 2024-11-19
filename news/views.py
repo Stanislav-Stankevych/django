@@ -1,46 +1,41 @@
-# news/views.py
+
+
+# Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
+from .forms import PostForm
+from django.core.paginator import Paginator
+from .forms import SearchForm
+
+from django.shortcuts import render
 from .models import News
-from .forms import NewsForm
 
-# Представление для списка новостей
-def news_list(request):
-    news_items = News.objects.filter(is_published=True).order_by('-created_at')  # Показываем только опубликованные новости
-    return render(request, 'news/news_list.html', {'news_items': news_items})
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from .models import News
 
-# Представление для детальной страницы новости
-def news_detail(request, news_id):
-    news_item = get_object_or_404(News, id=news_id)  # Находим новость по id или возвращаем 404
-    return render(request, 'news/news_detail.html', {'news_item': news_item})
+def post_list(request):
+    posts = News.objects.filter(is_published=True).order_by('-created_at')
+    paginator = Paginator(posts, 2)  # Показываем по 2 записи на странице
 
-# Представление для создания новой новости
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,
+    }
+    return render(request, 'blog/post_list.html', context)
+
+
 def create_news(request):
     if request.method == 'POST':
-        form = NewsForm(request.POST)
+        form = PostForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('news_list')  # Перенаправляем на список новостей после сохранения
+            return redirect('article_list')  # перенаправляем на список статей
     else:
-        form = NewsForm()
-    return render(request, 'news/create_news.html', {'form': form})
-
-# news/views.py
-def news_detail(request, news_id):
-    news_item = get_object_or_404(News, id=news_id, is_published=True)
-    return render(request, 'news/news_detail.html', {'news_item': news_item})
-
-# views.py
-
-
-def track_refresh(request):
-    # Проверяем, есть ли в сессии счётчик обновлений
-    if 'refresh_count' in request.session:
-        request.session['refresh_count'] += 1  # Увеличиваем счётчик на 1
-    else:
-        request.session['refresh_count'] = 1  # Инициализируем счётчик
-
-    # Получаем значение счётчика из сессии
-    refresh_count = request.session['refresh_count']
-    
-    # Передаем счётчик в шаблон
-    return render(request, 'news/news_detail.html', {'refresh_count': refresh_count})
+        form = PostForm()
+    return render(request, 'blog/create_post.html', {'form': form})
+#генерация HTML шаблона
+def post_detail(request, post_id):
+    post = get_object_or_404(News, id=post_id, is_published=True)
+    return render(request, 'blog/post_detail.html', {'post': post})
