@@ -1,14 +1,38 @@
-<!-- blog/templates/blog/post_detail.html -->
-<!doctype html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <title>{{ post.title }}</title>
-  </head>
-  <body>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
-    <p><em>Опубликовано: {{ post.created_at }}</em></p>
-    <a href="{% url 'home' %}">На главную</a>
-  </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    <!-- Заголовок поста -->
+    <h1 class="text-3xl font-bold mb-4">{{ post.title }}</h1>
+
+    <!-- Дата создания -->
+    <p class="text-gray-500 text-sm">
+        Опубликовано: {{ post.created_at|date:"d M Y H:i" }}
+    </p>
+
+    <!-- Содержимое -->
+    <div class="mt-4 text-gray-800">
+        {{ post.content }}
+    </div>
+
+    <!-- Статус публикации -->
+    {% if post.is_published %}
+        <span class="inline-block mt-4 px-3 py-1 bg-green-100 text-green-700 text-sm rounded">
+            Опубликовано
+        </span>
+    {% else %}
+        <span class="inline-block mt-4 px-3 py-1 bg-yellow-100 text-yellow-700 text-sm rounded">
+            Черновик
+        </span>
+    {% endif %}
+
+    <!-- Ссылка для возврата -->
+    <a href="{% url 'post_list' %}" class="block mt-6 text-blue-500 hover:underline">
+        Вернуться к списку постов
+    </a>
+</div>
+{% endblock %}

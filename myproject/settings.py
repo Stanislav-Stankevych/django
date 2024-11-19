@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',  # Добавляем наше новое приложение
     'news',
-    "main",
+    
+   
     
     
 ]

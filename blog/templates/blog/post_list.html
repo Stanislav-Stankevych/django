@@ -1,42 +1,41 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 
-{% block title %}Список постов{% endblock %} 
+{% block title %}Список постов{% endblock %}
 
-    <!-- Ссылка для создания новой новости в приложении news -->
-    {% block urlpage %} 
-    <a class="nav-link" href="{% url 'create_post' %}">Добавить новость</a>
-    {% endblock %}
-
+{% block content %}
+<div class="post-list">
+  <h1 class="text-2xl font-bold mb-4">Список постов</h1>
+  
+  <!-- Выводим посты -->
+  <ul>
+    {% for post in page_obj %}
+      <li class="mb-4">
+        <h2 class="text-xl font-semibold">{{ post.title }}</h2>
+        <p class="text-gray-600">{{ post.content|truncatechars:100 }}</p>
+        <a href="{% url 'post_detail' post.id %}" class="text-blue-500 hover:underline">
+          Читать дальше
+        </a>
+      </li>
+    {% empty %}
+      <p>Нет доступных постов.</p>
+    {% endfor %}
+  </ul>
+  
+  <!-- Пагинация -->
+  <div class="pagination flex justify-center items-center space-x-4 mt-4">
+    {% if page_obj.has_previous %}
+      <a href="?page=1" class="pagination-link">Первая</a>
+      <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Предыдущая</a>
+    {% endif %}
     
-    {% block content %}
-      <ul>
-      <!-- Цикл для отображения каждого поста в списке -->
-      {% for post in page_obj %}
-           <li>
-              <h2>{{ post.title }}</h2>
-              <p>{{ post.content }}</p>
-              <p><em>Опубликовано: {{ post.created_at }}</em></p>
-            </li>
-      {% empty %}
-      <p>Пока нет постов.</p>
-      {% endfor %}
-      </ul>
-
-       <!-- Постраничная навигация -->
- <div class="pagination">
-  {% if page_obj.has_previous %}
-    <a href="?page=1" class="pagination-link">Первая</a>
-    <a href="?page={{ page_obj.previous_page_number }}" class="pagination-link">Предыдущая</a>
-  {% endif %}
-
-  <span class="pagination-current">
-    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
-  </span>
-
-  {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Следующая</a>
-    <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Последняя</a>
-  {% endif %}
+    <span class="pagination-current">
+      Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+    </span>
+    
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="pagination-link">Следующая</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-link">Последняя</a>
+    {% endif %}
+  </div>
 </div>
-
-    {% endblock %}
+{% endblock %}

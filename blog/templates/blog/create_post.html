@@ -1,47 +1,61 @@
 {% extends "base.html" %} 
 
-  
-      {% block header %}
-      Создать новый пост
-      {% endblock%}
+{% block title %}Список статей{% endblock %}
 
-      {% block content %}
-      <form method="post" class="bg-white  p-8 rounded-lg shadow-md">
-        {% csrf_token %} {{ form.non_field_errors }}
+{% block content %}
 
-        <!-- Поле заголовка -->
-        <div class="mb-4">
-          <label for="id_title" class="block text-gray-700 font-semibold mb-2"
-            >Заголовок</label
-          >
-          {{ form.title }} {{ form.title.errors }}
+  <form method="post" action="{% url 'create_post' %}" class="bg-white p-8 rounded-lg shadow-md space-y-6">
+    {% csrf_token %}
+    <!-- Обработка ошибок формы -->
+    {{ form.non_field_errors }}
+
+    <!-- Поле заголовка -->
+    <div>
+      <label for="id_title" class="block text-gray-700 font-semibold mb-2">
+        Заголовок
+      </label>
+      {{ form.title }}
+      {% if form.title.errors %}
+        <div class="text-red-500 text-sm mt-1">
+          {{ form.title.errors }}
         </div>
+      {% endif %}
+    </div>
 
-        <!-- Поле содержания -->
-        <div class="mb-6">
-          
-<label for="id_content" class="block text-gray-700 font-semibold mb-2">Содержание</label
-          >
-          {{ form.content }} {{ form.content.errors }}
+    <!-- Поле содержания -->
+    <div>
+      <label for="id_content" class="block text-gray-700 font-semibold mb-2">
+        Содержание
+      </label>
+      {{ form.content }}
+      {% if form.content.errors %}
+        <div class="text-red-500 text-sm mt-1">
+          {{ form.content.errors }}
         </div>
+      {% endif %}
+    </div>
 
-        <!-- Чекбокс для публикации -->
-        <div class="mb-4">
-          <label class="inline-flex items-center">
-            {{ form.is_published }}
-            <span class="ml-2 text-gray-700">Опубликовать</span>
-          </label>
-        </div>
+    <!-- Чекбокс для публикации -->
+    <div>
+      <label class="inline-flex items-center">
+        {{ form.is_published }}
+        <span class="ml-2 text-gray-700">Опубликовать</span>
+      </label>
+    </div>
 
-        <button
-          type="submit"
-          class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Создать
-        </button>
-      </form>
-      <a href="{% url 'post_list'  %}">Подробнее о посте</a>
-      {% endblock %}
-    
-    
+    <!-- Кнопка отправки -->
+    <button
+      type="submit"
+      class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Создать
+    </button>
+  </form>
 
+  <!-- Ссылка на список постов -->
+  <div class="mt-4">
+    <a href="{% url 'post_list' %}" class="text-blue-500 hover:underline">
+      Перейти к списку постов
+    </a>
+  </div>
+{% endblock %}

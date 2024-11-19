@@ -1,86 +1,70 @@
-<!-- templates/base.html -->
 {% load static %}
 <!doctype html>
 <html lang="en">
   <head>
-    <meta Content-Type="text/html"; charset="UTF-8" />
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Project{% endblock %}</title>
-    <link href="{% static 'css/output.css' %}?v={{ timestamp }}" rel="stylesheet" type="text/css" />
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'css/output.css' %}?v={{ timestamp }}" rel="stylesheet" type="text/css">
   </head>
   <body>
     <!-- Основной контейнер -->
     <div class="container mx-auto my-8">
-      <!-- Заголовок -->
-
-   
-        <header class="header-gradient  h-32">
-          <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="header-title">Блог новость</h1>
-            <nav class="space-x-4">
-              <a href="{% url 'home' %}" class="nav-link">Home</a>
-              <a href="{% url 'article_list' %}" class="nav-link">Blog</a>
-              <a href="{% url 'news_list' %}" class="nav-link">News</a>
-              {% block urlpage %} {% endblock %}
-            </nav>
+      
+      <!-- Хедер -->
+      <header class="header-gradient h-32 relative">
+        <div class="container mx-auto px-4 flex justify-between items-center h-full top-4">
+          <h1 class="header-title">Блог новость</h1>
+          <nav class="space-x-4 top-10 ">
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+            <a href="{% url 'post_list' %}" class="nav-link">Blog</a>
+            <a href="{% url 'news_list' %}" class="nav-link">News</a>
+            {% block urlpage %}{% endblock %}
+          </nav>
+          <!-- Форма поиска -->
+          <form method="get" action="{% url 'global_search' %}" class="search-form absolute bottom-2 right-4">
+            <input 
+              type="text" 
+              name="query" 
+              class="search-input border border-gray-300 rounded-md p-2 text-sm w-64"
+              placeholder="Введите текст для поиска">
+            <button 
+              type="submit" 
+              class="search-button bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 text-sm">
+              Найти
+            </button>
+          </form>
           
-          </div>
-        </header>
-      
-
-
-      
-
-      <!-- Заголовок -->
-      {% block header %}
-      Добро пожаловать на главную страницу!
-      <div id="app"></div> <!-- Контейнер для Vue -->
-      {% endblock%}
-
+        </div>
+      </header>
 
       <!-- Основной контент -->
       <main class="mt-8 border-solid back p-4 bg-slate-300 rounded shadow-md">
-       
-       
         {% block content %}
-        
         {% endblock %}
-        
       </main>
-      <div id="vue-app"></div> <!-- Контейнер для Vue -->
+
       <!-- Футер -->
-      <!-- templates/base.html или другой основной файл -->
-<footer class="footer ">
-  
-  <div class="footer-container">
-    <div class="flex flex-col md:flex-row justify-between items-center">
-      <!-- Логотип или Название сайта -->
-      <h2 class="footer-title">My Project</h2>
-
-      <!-- Навигационные ссылки -->
-      <ul class="footer-links visible">
-        <li><a href="{% url 'home' %}" class="footer-link">Главная</a></li>
-        <li><a href="{% url 'post_list' %}" class="footer-link">Блог</a></li>
-        <li><a href="{% url 'news_list' %}" class="footer-link">Новости</a></li>
-        <li><a href="{% url 'create_post' %}" class="footer-link">Создать Блог</a></li>
-      </ul>
-
-      <!-- Информация о авторских правах -->
-      <p class="footer-copyright">&copy; 2024 Новости. Все права защищены.</p>
-    </div>
-
-    <!-- Социальные иконки или дополнительная информация -->
-   
-    
-  </div>
-</footer>
+      <footer class="footer">
+        <div class="footer-container">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <h2 class="footer-title">My Project</h2>
+            <ul class="footer-links">
+              <li><a href="{% url 'home' %}" class="footer-link">Главная</a></li>
+              <li><a href="{% url 'post_list' %}" class="footer-link">Блог</a></li>
+              <li><a href="{% url 'news_list' %}" class="footer-link">Новости</a></li>
+              <li><a href="{% url 'create_post' %}" class="footer-link">Создать Блог</a></li>
+            </ul>
+            <p class="footer-copyright">&copy; 2024 Новости. Все права защищены.</p>
+          </div>
+        </div>
+      </footer>
 
     </div>
 
-<!-- Vue приложение -->
-<div id="app"></div>
+    <!-- Vue приложение -->
+    <div id="vue-app"></div>
 
-
-<script type="module" src="{% static 'js/main.js' %}" defer></script>
+    <script type="module" src="{% static 'js/main.js' %}" defer></script>
   </body>
 </html>

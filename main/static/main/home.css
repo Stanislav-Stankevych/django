@@ -1,0 +1,30 @@
+/* main/static/main/home.css */
+
+/* Основные стили для заголовка */
+.header {
+  @apply text-4xl font-bold text-center mb-6;
+}
+
+/* Контейнер для основного содержимого и боковой панели */
+.container {
+  @apply mx-auto my-8;
+}
+
+/* Стили для блочной секции */
+.content {
+  @apply bg-white p-6 rounded-lg shadow-md mb-8;
+}
+
+/* Боковая панель */
+.sidebar {
+  @apply bg-gray-200 p-6 rounded-lg shadow-md;
+}
+
+/* Стили заголовков и текста */
+.post-title {
+  @apply text-xl font-semibold text-blue-600 hover:underline;
+}
+
+.post-content {
+  @apply text-gray-700 mt-2;
+}
