@@ -43,8 +43,12 @@ RUN npm install
 # Копируем все файлы проекта
 COPY . /app
 
+# Устанавливаем скрипт ожидания базы данных
+COPY wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
+
 # Указываем порт приложения
 EXPOSE 8000
 
-# Запуск Django-сервера
-CMD ["/opt/conda/envs/pythontest3_env/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Запуск Django-сервера с ожиданием базы данных
+CMD ["/wait-for-it.sh", "db:5432", "--", "/opt/conda/envs/pythontest3_env/bin/python", "manage.py", "runserver", "0.0.0.0:8000"]

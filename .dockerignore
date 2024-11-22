@@ -1,6 +1,9 @@
-node_modules/
-.git/
 *.pyc
+*.pyo
 __pycache__/
-env/
-.venv/
+node_modules/
+*.log
+venv/
+*.sqlite3
+.DS_Store
+.idea/

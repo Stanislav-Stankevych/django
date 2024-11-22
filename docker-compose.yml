@@ -1,23 +1,22 @@
 services:
   web:
-    build: .
-    deploy:
-      resources:
-        limits:
-          cpus: '4.0'   # Ограничение использования до 4 CPU
-        reservations:
-          cpus: '4.0'   # Резервирует 4 CPU для работы
+    image: pythontest3-web  # Укажите ваш образ
     ports:
       - "8000:8000"
     volumes:
-      - .:/app
+      - .:/app  # Привязываем локальную папку `./app` к папке `/app` в контейнере
+      - app_data:/app/data  # Привязываем volume для данных
     depends_on:
       - db
     environment:
       DJANGO_SETTINGS_MODULE: myproject.settings
-     
+      PYTHONPATH: /app
     env_file:
       - .env
+    command: >
+      bash -c "source /opt/conda/bin/activate pythontest3_env &&
+               python manage.py migrate &&
+               python manage.py runserver 0.0.0.0:8000"
 
   db:
     image: postgres:13
@@ -32,4 +31,5 @@ services:
       POSTGRES_DB: PythonTestDB
 
 volumes:
-  postgres_data:
+  app_data:  # Volume для данных приложения
+  postgres_data:  # Volume для базы данных
